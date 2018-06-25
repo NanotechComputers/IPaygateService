@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Paygate.PayHost</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Paygate PayHost Wrapper</Title>
+    <Authors>Kevin Deason</Authors>
+    <Company>Nanotech Computers</Company>
+    <Description>.NET Standard Wrapper for the Paygate PayHost API.</Description>
+    <Copyright>Copyright 2018 Nanotech Computers (Pty) Ltd</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/NanotechComputers/Paygate</PackageProjectUrl>
+    <PackageReleaseNotes>See project site for latest release notes</PackageReleaseNotes>
+    <PackageTags>payment gateway paygate</PackageTags>
+    <PackageOutputPath>$(SolutionDir)\dist\nuget\</PackageOutputPath>
+    <RepositoryUrl>https://github.com/NanotechComputers/Paygate</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="ServiceStack.Text.Core" Version="5.1.0" />
+  </ItemGroup>
+</Project>

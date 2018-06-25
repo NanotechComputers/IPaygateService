@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paygate", "Paygate\Paygate.csproj", "{21FAFFF6-8919-47A0-B545-0ADE8830F32C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPaygate", "TestPaygate\TestPaygate.csproj", "{0634629A-4080-45EC-9E8C-D8BF7DBF07F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPayGateMVC", "TestPayGateMVC\TestPayGateMVC.csproj", "{1DEED4F1-D877-4FCE-805D-96A18E5E1982}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0634629A-4080-45EC-9E8C-D8BF7DBF07F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0634629A-4080-45EC-9E8C-D8BF7DBF07F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0634629A-4080-45EC-9E8C-D8BF7DBF07F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0634629A-4080-45EC-9E8C-D8BF7DBF07F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DEED4F1-D877-4FCE-805D-96A18E5E1982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DEED4F1-D877-4FCE-805D-96A18E5E1982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DEED4F1-D877-4FCE-805D-96A18E5E1982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DEED4F1-D877-4FCE-805D-96A18E5E1982}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
