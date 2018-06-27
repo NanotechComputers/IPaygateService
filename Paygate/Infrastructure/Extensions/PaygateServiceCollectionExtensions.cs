@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Paygate.Extensions
+namespace Paygate.Infrastructure.Extensions
 {
     // ReSharper disable once UnusedMember.Global
     public static class PaygateServiceCollectionExtensions
@@ -13,7 +13,6 @@ namespace Paygate.Extensions
             if (setupAction == null) throw new ArgumentNullException(nameof(setupAction));
 
             collection.Configure(setupAction);
-            AutoMapperConfig.CreateMaps();
 
             return collection.AddTransient<IPaygateService, PaygateService>();
         }

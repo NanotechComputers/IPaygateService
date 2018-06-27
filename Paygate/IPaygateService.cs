@@ -6,8 +6,11 @@ namespace Paygate
 {
     public interface IPaygateService
     {
-        TransactionResponse CreateTransaction(CreateRequest requestData);
+        TransactionResponse CreateTransaction(CreateTransactionModel requestData);
+        TransactionResponse<TUserdefined> CreateTransaction<TUserdefined>(CreateTransactionModel<TUserdefined> requestData) where TUserdefined : class;
+        
         bool VerifyTransaction(Dictionary<string, string> urlParams, string payRequestId);
+        
         TransactionResponse QueryTransaction(string paygateRequestId);
     }
 }

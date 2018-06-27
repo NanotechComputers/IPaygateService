@@ -1,91 +1,70 @@
 ﻿using System;
 using System.Linq;
 using Paygate.Models.Request;
+using static Paygate.Infrastructure.Extensions.StringExtensions;
 
 namespace Paygate.Infrastructure.SoapTemplates
 {
     internal static class SinglePaymentRequestSoapXml
     {
-        
-       internal static string Get(string merchantId, string merchantSecret, CreateRequest data)
+        private static string Get(string merchantId, string merchantSecret, CreateTransactionModel data, string userDefinedFieldXml)
         {
-            //TODO: Remove the validation below and use data attributes and custom IValidator
-
-            //Transaction amount in cents.
-            /*
-            TransactionDate
-                This is the date that the transaction was initiated on your website or system.
-                The transaction date must be specified in 'Coordinated Universal Time'
-                (UTC)
-                e.g. 2013-01-01T18:30:00+02:00
-                */
+             //TODO: Remove the validation below and use data attributes and custom Validator
             if (data == null)
-            { throw new NullReferenceException(nameof(data)); }
+            {
+                throw new NullReferenceException(nameof(data));
+            }
+
             if (data.Customer == null)
-            { throw new NullReferenceException(nameof(data.Customer)); }
+            {
+                throw new NullReferenceException(nameof(data.Customer));
+            }
+
             if (string.IsNullOrEmpty(data.Customer.FirstName))
             {
-                throw new NullReferenceException(nameof(data.Customer.FirstName)); 
+                throw new NullReferenceException(nameof(data.Customer.FirstName));
             }
+
             if (string.IsNullOrEmpty(data.Customer.LastName))
             {
-                throw new NullReferenceException(nameof(data.Customer.LastName)); 
+                throw new NullReferenceException(nameof(data.Customer.LastName));
             }
+
             if (string.IsNullOrEmpty(data.Customer.Email))
             {
-                throw new NullReferenceException(nameof(data.Customer.Email)); 
+                throw new NullReferenceException(nameof(data.Customer.Email));
             }
+
             if (string.IsNullOrEmpty(data.Customer.Mobile))
             {
                 //only if Fraud and Risk screening is activated
                 //throw new NullReferenceException(nameof(data.Customer.Mobile)); 
             }
+
             if (string.IsNullOrEmpty(data.Card.HolderName))
             {
-                throw new NullReferenceException(nameof(data.Card.HolderName)); 
+                throw new NullReferenceException(nameof(data.Card.HolderName));
             }
+
             if (string.IsNullOrEmpty(data.Card.Number))
             {
-                throw new NullReferenceException(nameof(data.Card.Number)); 
+                throw new NullReferenceException(nameof(data.Card.Number));
             }
+
             if (string.IsNullOrEmpty(data.Card.Cvv))
             {
-                throw new NullReferenceException(nameof(data.Card.Cvv)); 
+                throw new NullReferenceException(nameof(data.Card.Cvv));
             }
+
             if (string.IsNullOrEmpty(data.Card.ExpiryMonth))
             {
-                throw new NullReferenceException(nameof(data.Card.ExpiryMonth)); 
+                throw new NullReferenceException(nameof(data.Card.ExpiryMonth));
             }
+
             if (string.IsNullOrEmpty(data.Card.ExpiryYear))
             {
-                throw new NullReferenceException(nameof(data.Card.ExpiryYear)); 
+                throw new NullReferenceException(nameof(data.Card.ExpiryYear));
             }
-
-            //TODO: Add UserDefined Fields again
-            /*var userdefinedFieldsAvailable = 5;
-            var totalTextLengthPerField = 254;
-            var stringData = StringCompressor.Serialize(data.UserdefinedField); 
-            var compressed = stringData.CompressString();
-            var decompressed = compressed.DecompressString();
-            var obj = StringCompressor.Deserialize<TUserdefined>(decompressed);
-
-            if (compressed.Length + 1 > (userdefinedFieldsAvailable*totalTextLengthPerField))
-            {
-                throw new Exception("User Defined Field exceeds available length");
-            }
-
-            var userDefinedFieldXml = "";
-            if (!string.IsNullOrEmpty(compressed))
-            {
-                // Add it to the xml
-                var splitString = compressed.SplitInChunks(254);
-                var idx = 1;
-                foreach (var x in splitString)
-                {
-                    userDefinedFieldXml += $@"<pay:UserDefinedFields><pay:key>{idx}</pay:key><pay:value>{x}</pay:value></pay:UserDefinedFields>";
-                    idx ++;
-                }
-            }*/
 
             var productItemsXml = "";
             if (data.Order.Items.Any())
@@ -100,6 +79,7 @@ namespace Paygate.Infrastructure.SoapTemplates
                                                 <pay:Currency>{orderItem?.Currency?.ToString() ?? ""}</pay:Currency>
                                             </pay:OrderItems>");
             }
+
             var merchantRedirectUrl = data.Redirect?.RedirectUrl ?? "";
             var merchantNotifyUrl = data.Redirect?.NotifyUrl ?? "";
             return $@"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:pay=""http://www.paygate.co.za/PayHOST"">
@@ -131,11 +111,51 @@ namespace Paygate.Infrastructure.SoapTemplates
                                         <pay:Currency>{data.Order?.Currency}</pay:Currency>
                                         <pay:Amount>{data.Order?.Amount}</pay:Amount>
                                         {productItemsXml}
-                                    </pay:Order>   
+                                    </pay:Order>
+                                    {userDefinedFieldXml}   
                                 </pay:CardPaymentRequest>
                             </pay:SinglePaymentRequest>
                         </soapenv:Body>
                     </soapenv:Envelope>";
+        }
+        
+        internal static string Get(string merchantId, string merchantSecret, CreateTransactionModel data)
+        {
+            
+            return Get(merchantId, merchantSecret, data, "");
+        }
+
+        internal static string Get<TUserdefined>(string merchantId, string merchantSecret, CreateTransactionModel<TUserdefined> data) where TUserdefined : class
+        {
+            
+            var userdefinedFieldsAvailable = 5;
+            var totalTextLengthPerField = 254;
+            var stringData = Serialize(data.UserdefinedData);
+            var compressed = stringData.CompressString();
+
+            if (compressed.Length + 1 > (userdefinedFieldsAvailable*totalTextLengthPerField))
+            {
+                throw new Exception("User Defined Field exceeds available length");
+            }
+
+            var userDefinedFieldXml = "";
+            if (string.IsNullOrEmpty(compressed))
+            {
+                return Get(merchantId, merchantSecret, data, userDefinedFieldXml);
+            }
+            
+            // Add it to the xml
+            var splitString = compressed.SplitInChunks(254);
+            var idx = 1;
+            foreach (var x in splitString)
+            {
+                userDefinedFieldXml += $@"<pay:UserDefinedFields><pay:key>{idx}</pay:key><pay:value>{x}</pay:value></pay:UserDefinedFields>";
+                idx ++;
+            }
+
+            return Get(merchantId, merchantSecret, data, userDefinedFieldXml);
+
+            
         }
     }
 }

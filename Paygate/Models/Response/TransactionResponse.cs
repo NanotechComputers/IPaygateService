@@ -21,4 +21,9 @@ namespace Paygate.Models.Response
         public PaymentType Type { get; set; }
         public RedirectOptions Redirect { get; set; }
     }
+
+    public class TransactionResponse<TUserdefined> : TransactionResponse
+    {
+        public TUserdefined UserdefinedData { get; set; }
+    }
 }
