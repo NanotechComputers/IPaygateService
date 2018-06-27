@@ -1,0 +1,20 @@
+﻿@model Paygate.Models.Response.TransactionResponse
+
+
+@if (!string.IsNullOrWhiteSpace(Model?.Redirect?.RedirectUrl))
+{
+    <h1>Redirecting to 3D Secure</h1>
+    @Html.Raw(Model.Redirect.Form)
+}
+else
+{
+    <h1>Transaction has been completed</h1>
+    <h2>Status: @Html.Raw(Model?.StatusName.ToString()??"")</h2>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model?.Redirect?.RedirectUrl))
+{
+    <script>
+        document.forms["PayGate3DSecureForm"].submit();
+    </script>
+}
