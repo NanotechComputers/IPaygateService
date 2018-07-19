@@ -41,7 +41,7 @@ namespace Paygate
 
             //Get the response
             var response = _url.PostStringToUrl(transactionData, "application/xml");
-            
+
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(response);
@@ -56,7 +56,7 @@ namespace Paygate
 
             //Get the response
             var response = _url.PostStringToUrl(transactionData, "application/xml");
-            
+
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(response);
@@ -73,7 +73,7 @@ namespace Paygate
             //PAYGATE_ID+PAY_REQUEST_ID+TRANSACTION_STATUS+REFERENCE+KEY
 
             var checksumHash = (_merchantId + paygateRequestId + transactionStatus + reference + _merchantSecret).ToMd5Hash(); //Calculated Checksum
-            var matches =  checksumHash == (checksum?.ToUpper() ?? ""); //Verify if the two match
+            var matches = checksumHash == (checksum?.ToUpper() ?? ""); //Verify if the two match
             return matches;
         }
 
@@ -81,6 +81,38 @@ namespace Paygate
         {
             //Post to Paygate
             var transactionData = SingleFollowUpRequestSoapXml.Get(_merchantId, _merchantSecret, paygateRequestId);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, "application/xml");
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using automapper and some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        public TransactionResponse SettleTransaction(string transactionId, int amount)
+        {
+            //Post to Paygate
+            var transactionData = SingleSettleRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId, amount);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, "application/xml");
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using automapper and some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        public TransactionResponse RefundTransaction(string transactionId, int amount)
+        {
+            //Post to Paygate
+            var transactionData = SingleRefundRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId, amount);
 
             //Get the response
             var response = _url.PostStringToUrl(transactionData, "application/xml");

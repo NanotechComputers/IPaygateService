@@ -18,7 +18,7 @@ namespace TestPaygate
                 const string url = "https://secure.paygate.co.za/payhost/process.trans";
                 const string merchantId = "10011064270"; //No 3d secure redirect on this merchantId
                 const string merchantSecret = "test"; //This is the merchantSecret paired with above merchantId
-                
+
                 var paygate = new PaygateService(url, merchantId, merchantSecret);
 
                 var orderitems = new List<OrderItems>
@@ -30,7 +30,7 @@ namespace TestPaygate
                 };
 
                 var orderId = Guid.NewGuid().ToString("N"); //We need to pass in a unique reference/orderId per transaction
-                
+
                 //Build the CreateRequestData expected by Paygate with the minimum of fields
                 var data = new CreateTransactionModel
                 {
@@ -75,6 +75,12 @@ namespace TestPaygate
                         break;
                     case StatusName.Completed:
                         Console.WriteLine("Transaction Successful");
+
+                        var settled = paygate.SettleTransaction(response.TransactionId.ToString(), data.Order.Amount);
+                        Console.WriteLine("Transaction Settled");
+
+                        var refunded = paygate.RefundTransaction(response.TransactionId.ToString(), data.Order.Amount);
+                        Console.WriteLine("Transaction Refunded");
                         break;
                     case StatusName.ValidationError:
                         Console.WriteLine("Transaction Failed Validation");
