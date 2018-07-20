@@ -91,6 +91,13 @@ namespace TestPayGateMVC.Controllers
                         break;
                     case StatusName.Completed:
                         Debug.WriteLine("Transaction Successful");
+                        
+                        var settled = _paygateService.SettleTransaction(response.TransactionId);
+                        Console.WriteLine("Transaction Settled");
+
+                        var refunded = _paygateService.RefundTransaction(response.TransactionId, data.Order.Amount);
+                        Console.WriteLine("Transaction Refunded");
+                        
                         return View(response);
                         break;
                     case StatusName.ValidationError:

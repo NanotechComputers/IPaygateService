@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Paygate.Infrastructure.Extensions
 {
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         internal static string ToMd5Hash(this string input)
         {
@@ -32,7 +32,7 @@ namespace Paygate.Infrastructure.Extensions
         /// <returns></returns>
         internal static string CompressString(this string text)
         {
-            byte[] buffer = Encoding.UTF8.GetBytes(text);
+            var buffer = Encoding.UTF8.GetBytes(text);
             var memoryStream = new MemoryStream();
             using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
             {
@@ -57,10 +57,10 @@ namespace Paygate.Infrastructure.Extensions
         /// <returns></returns>
         internal static string DecompressString(this string compressedText)
         {
-            byte[] gZipBuffer = Convert.FromBase64String(compressedText);
+            var gZipBuffer = Convert.FromBase64String(compressedText);
             using (var memoryStream = new MemoryStream())
             {
-                int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
+                var dataLength = BitConverter.ToInt32(gZipBuffer, 0);
                 memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
 
                 var buffer = new byte[dataLength];

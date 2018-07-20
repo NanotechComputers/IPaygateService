@@ -56,6 +56,11 @@ namespace Paygate.Infrastructure.SoapTemplates
                 throw new NullReferenceException(nameof(data.Card.Cvv));
             }
 
+            if (data.Card.BudgetPeriod == null)
+            {
+                throw new NullReferenceException(nameof(data.Card.BudgetPeriod));
+            }
+
             if (string.IsNullOrEmpty(data.Card.ExpiryMonth))
             {
                 throw new NullReferenceException(nameof(data.Card.ExpiryMonth));

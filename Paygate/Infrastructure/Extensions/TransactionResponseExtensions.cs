@@ -6,10 +6,19 @@ using Paygate.Models.Shared;
 
 namespace Paygate.Infrastructure.Extensions
 {
-    public static class TransactionResponseExtensions
+    internal static class TransactionResponseExtensions
     {
-        public static TransactionResponse ToTransactionResponse(this XmlDocument src)
+        internal static TransactionResponse ToTransactionResponse(this XmlDocument src)
         {
+            var error = src.GetXmlError<string>("faultstring");
+            var errorDetails = src.GetXmlError<string>("detail");
+            
+            if(!string.IsNullOrWhiteSpace(error) && !string.IsNullOrWhiteSpace(errorDetails))
+            {
+                //Some error from PayGate - throw
+                throw new Exception($"An error was returned from PayGate: {error}{Environment.NewLine}Details: {errorDetails}");
+            }
+            
             Guid.TryParse(src.GetXml<string>("PayRequestId"), out var payRequestId);
             var response = new TransactionResponse
             {
@@ -41,8 +50,17 @@ namespace Paygate.Infrastructure.Extensions
             return response;
         }
 
-        public static TransactionResponse<TUserdefined> ToTransactionResponse<TUserdefined>(this XmlDocument src) where TUserdefined : class
+        internal static TransactionResponse<TUserdefined> ToTransactionResponse<TUserdefined>(this XmlDocument src) where TUserdefined : class
         {
+            var error = src.GetXmlError<string>("faultstring");
+            var errorDetails = src.GetXmlError<string>("detail");
+            
+            if(!string.IsNullOrWhiteSpace(error) && !string.IsNullOrWhiteSpace(errorDetails))
+            {
+                //Some error from PayGate - throw
+                throw new Exception($"An error was returned from PayGate: {error}{Environment.NewLine}Details: {errorDetails}");
+            }
+            
             Guid.TryParse(src.GetXml<string>("PayRequestId"), out var payRequestId);
             var response = new TransactionResponse<TUserdefined>
             {

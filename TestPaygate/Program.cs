@@ -76,10 +76,10 @@ namespace TestPaygate
                     case StatusName.Completed:
                         Console.WriteLine("Transaction Successful");
 
-                        var settled = paygate.SettleTransaction(response.TransactionId.ToString(), data.Order.Amount);
+                        var settled = paygate.SettleTransaction(response.TransactionId);
                         Console.WriteLine("Transaction Settled");
 
-                        var refunded = paygate.RefundTransaction(response.TransactionId.ToString(), data.Order.Amount);
+                        var refunded = paygate.RefundTransaction(response.TransactionId, data.Order.Amount);
                         Console.WriteLine("Transaction Refunded");
                         break;
                     case StatusName.ValidationError:
