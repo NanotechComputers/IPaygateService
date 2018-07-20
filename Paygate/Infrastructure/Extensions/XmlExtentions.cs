@@ -5,9 +5,9 @@ using System.Xml;
 
 namespace Paygate.Infrastructure.Extensions
 {
-    public static class XmlExtentions
+    internal static class XmlExtentions
     {
-        public static T GetXml<T>(this XmlDocument document, string nodeName)
+        internal static T GetXml<T>(this XmlDocument document, string nodeName)
         {
             var nsmgr = new XmlNamespaceManager(document.NameTable);
             nsmgr.AddNamespace("SOAP-ENV", "http://schemas.xmlsoap.org/soap/envelope/");
@@ -21,8 +21,19 @@ namespace Paygate.Infrastructure.Extensions
 
             return (T) Convert.ChangeType(element, typeof(T));
         }
+        
+        internal static T GetXmlError<T>(this XmlDocument document, string nodeName)
+        {
+            var element = document.SelectSingleNode($"//{nodeName}")?.InnerText ?? "";
+            if (string.IsNullOrWhiteSpace(element))
+            {
+                return default(T);
+            }
 
-        public static XmlNode GetXmlNode(this XmlDocument document, string nodeName)
+            return (T) Convert.ChangeType(element, typeof(T));
+        }
+
+        internal static XmlNode GetXmlNode(this XmlDocument document, string nodeName)
         {
             var nsmgr = new XmlNamespaceManager(document.NameTable);
             nsmgr.AddNamespace("SOAP-ENV", "http://schemas.xmlsoap.org/soap/envelope/");
@@ -32,7 +43,7 @@ namespace Paygate.Infrastructure.Extensions
             return element;
         }
 
-        public static T GetXml<T>(this XmlDocument document, IEnumerable<string> nodeNames)
+        internal static T GetXml<T>(this XmlDocument document, IEnumerable<string> nodeNames)
         {
             var nsmgr = new XmlNamespaceManager(document.NameTable);
             nsmgr.AddNamespace("SOAP-ENV", "http://schemas.xmlsoap.org/soap/envelope/");

@@ -14,7 +14,7 @@ namespace Paygate.Infrastructure.Extensions
 
             collection.Configure(setupAction);
 
-            return collection.AddTransient<IPaygateService, PaygateService>();
+            return collection.AddScoped<IPaygateService, PaygateService>();
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using Microsoft.Extensions.Options;
 using Paygate.Infrastructure.Extensions;
 using Paygate.Infrastructure.SoapTemplates;
 using Paygate.Models.Request;
 using Paygate.Models.Response;
+using Paygate.Models.Shared;
 using ServiceStack;
 
 namespace Paygate
@@ -13,6 +15,9 @@ namespace Paygate
     {
         // ReSharper disable once InconsistentNaming
         private string _merchantSecret { get; set; }
+
+        // ReSharper disable once InconsistentNaming
+        private const string _contentType = "application/xml";
 
         // ReSharper disable once InconsistentNaming
         private string _url { get; set; }
@@ -34,13 +39,14 @@ namespace Paygate
             _merchantSecret = merchantSecret;
         }
 
+        /// <inheritdoc />
         public TransactionResponse CreateTransaction(CreateTransactionModel requestData)
         {
             //Post to Paygate
             var transactionData = SinglePaymentRequestSoapXml.Get(_merchantId, _merchantSecret, requestData);
 
             //Get the response
-            var response = _url.PostStringToUrl(transactionData, "application/xml");
+            var response = _url.PostStringToUrl(transactionData, _contentType);
 
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
@@ -49,13 +55,14 @@ namespace Paygate
             return xmlDocument.ToTransactionResponse();
         }
 
+        /// <inheritdoc />
         public TransactionResponse<TUserdefined> CreateTransaction<TUserdefined>(CreateTransactionModel<TUserdefined> requestData) where TUserdefined : class
         {
             //Post to Paygate
             var transactionData = SinglePaymentRequestSoapXml.Get(_merchantId, _merchantSecret, requestData);
 
             //Get the response
-            var response = _url.PostStringToUrl(transactionData, "application/xml");
+            var response = _url.PostStringToUrl(transactionData, _contentType);
 
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
@@ -64,6 +71,7 @@ namespace Paygate
             return xmlDocument.ToTransactionResponse<TUserdefined>();
         }
 
+        /// <inheritdoc />
         public bool VerifyTransaction(Dictionary<string, string> urlParams, string reference)
         {
             urlParams.TryGetValue("CHECKSUM", out var checksum); //Checksum from Paygate
@@ -77,51 +85,139 @@ namespace Paygate
             return matches;
         }
 
-        public TransactionResponse QueryTransaction(string paygateRequestId)
+        /// <inheritdoc />
+        public TransactionResponse QueryTransaction(Guid paygateRequestId)
         {
             //Post to Paygate
             var transactionData = SingleFollowUpRequestSoapXml.Get(_merchantId, _merchantSecret, paygateRequestId);
 
             //Get the response
-            var response = _url.PostStringToUrl(transactionData, "application/xml");
+            var response = _url.PostStringToUrl(transactionData, _contentType);
 
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(response);
 
-            //Return the converted response using automapper and some helper methods for the parsing
+            //Return the converted response using some helper methods for the parsing
             return xmlDocument.ToTransactionResponse();
         }
 
-        public TransactionResponse SettleTransaction(string transactionId, int amount)
+        /// <inheritdoc />
+        public TransactionResponse QueryTransaction(int transactionId)
         {
             //Post to Paygate
-            var transactionData = SingleSettleRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId, amount);
+            var transactionData = SingleFollowUpRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId);
 
             //Get the response
-            var response = _url.PostStringToUrl(transactionData, "application/xml");
+            var response = _url.PostStringToUrl(transactionData, _contentType);
 
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(response);
 
-            //Return the converted response using automapper and some helper methods for the parsing
+            //Return the converted response using some helper methods for the parsing
             return xmlDocument.ToTransactionResponse();
         }
 
-        public TransactionResponse RefundTransaction(string transactionId, int amount)
+        /// <inheritdoc />
+        public TransactionResponse QueryTransaction(string reference)
+        {
+            //Post to Paygate
+            var transactionData = SingleFollowUpRequestSoapXml.Get(_merchantId, _merchantSecret, reference);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public TransactionResponse SettleTransaction(string reference)
+        {
+            //Post to Paygate
+            var transactionData = SingleSettleRequestSoapXml.Get(_merchantId, _merchantSecret, reference);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public TransactionResponse SettleTransaction(int transactionId)
+        {
+            //Post to Paygate
+            var transactionData = SingleSettleRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public TransactionResponse RefundTransaction(int transactionId, int amount)
         {
             //Post to Paygate
             var transactionData = SingleRefundRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId, amount);
 
             //Get the response
-            var response = _url.PostStringToUrl(transactionData, "application/xml");
+            var response = _url.PostStringToUrl(transactionData, _contentType);
 
             //Convert response to XML Document for manipulation of data
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(response);
 
-            //Return the converted response using automapper and some helper methods for the parsing
+            //Return the converted response using some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public TransactionResponse RefundTransaction(string reference, int amount)
+        {
+            //Post to Paygate
+            var transactionData = SingleRefundRequestSoapXml.Get(_merchantId, _merchantSecret, reference, amount);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using some helper methods for the parsing
+            return xmlDocument.ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public TransactionResponse VoidTransaction(int transactionId, VoidTransactionTypes transactionType)
+        {
+            //Post to Paygate
+            var transactionData = SingleVoidRequestSoapXml.Get(_merchantId, _merchantSecret, transactionId, transactionType.ToString());
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(response);
+
+            //Return the converted response using some helper methods for the parsing
             return xmlDocument.ToTransactionResponse();
         }
     }
