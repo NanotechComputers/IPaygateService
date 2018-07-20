@@ -1,26 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>IPaygateService</PackageId>
-    <Version>1.1.0</Version>
-    <Title>IPaygateService Payhost Service and Wrapper</Title>
-    <Authors>Nanotech Computers</Authors>
-    <Company>Nanotech Computers</Company>
-    <Description>.NET Standard Service and Wrapper for the Paygate PayHost API.</Description>
-    <Copyright>Copyright 2018 Nanotech Computers (Pty) Ltd</Copyright>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/NanotechComputers/IPaygateService</PackageProjectUrl>
-    <PackageReleaseNotes>See project site for latest release notes</PackageReleaseNotes>
-    <PackageTags>payment gateway paygate payhost</PackageTags>
-    <PackageOutputPath>$(SolutionDir)\dist\nuget\</PackageOutputPath>
-    <RepositoryUrl>https://github.com/NanotechComputers/IPaygateService</RepositoryUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <ReleaseVersion>1.1.0</ReleaseVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="ServiceStack.Text.Core" Version="5.1.0" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>IPaygateService</PackageId>
+        <Version>2.0.0</Version>
+        <Title>IPaygateService Payhost Service and Wrapper</Title>
+        <Authors>Kevin Deason</Authors>
+        <Company>Nanotech Computers</Company>
+        <Description>.NET Standard Service and Wrapper for the Paygate PayHost API.</Description>
+        <Copyright>Copyright 2018 Nanotech Computers (Pty) Ltd</Copyright>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/NanotechComputers/IPaygateService</PackageProjectUrl>
+        <PackageReleaseNotes>
+            Please support us by providing PayGate with our DeveloperId: DEVF57C1B4 
+
+            Release Notes:
+
+            ## 2.0.0
+            
+            Important Notes: This version is not backwards compatible with existing code utilising previous versions
+            You'll need to change the previously passed string parameters to GUID's where PayRequestId was passed as this is now used for the Merchant Reference
+            
+            New Features:
+            * Added ability to void a transaction
+
+            Fixes:
+            * Return a proper exception when an error is returned from PayGate
+
+            Changes:
+            * Service is now added as Scoped in .net core projects rather than Transient
+            * Updated QueryTransaction to allow passing multiple parameters - PayGateRequestId, TransactionId and Reference
+            * Updated SettleTransaction to allow passing multiple parameters - TransactionId and Reference
+            * Updated RefundTransaction to allow passing multiple parameters - PayGateRequestId, TransactionId and Reference
+            * Added XML Comments to Methods
+
+            ## 1.1.0
+            * Added ability to settle a transaction
+            * Added ability to refund a transaction
+
+            ## 1.0.1 - Initial Public Release
+            * Added ability to create a transaction
+            * Added ability to query a transaction
+            * Added ability to verify a transaction's checksum
+        </PackageReleaseNotes>
+        <PackageTags>payment gateway paygate payhost</PackageTags>
+        <PackageOutputPath>$(SolutionDir)\dist\nuget\</PackageOutputPath>
+        <RepositoryUrl>https://github.com/NanotechComputers/IPaygateService</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <ReleaseVersion>2.0.0</ReleaseVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1"/>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2"/>
+        <PackageReference Include="ServiceStack.Text.Core" Version="5.1.0"/>
+    </ItemGroup>
 </Project>
