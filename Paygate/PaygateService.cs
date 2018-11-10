@@ -39,6 +39,19 @@ namespace Paygate
             _merchantSecret = merchantSecret;
         }
 
+        /// <summary>
+        /// CreateXmlDocument method will convert input string to xml document
+        /// </summary>
+        /// <param name="webResponse">The string data we received from web request to Paygate Server</param>
+        /// <returns>XmlDocument</returns>
+        private XmlDocument CreateXmlDocument(string webResponse)
+        {
+            //Convert response to XML Document for manipulation of data
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(webResponse);
+            return xmlDocument;
+        }
+
         /// <inheritdoc />
         public TransactionResponse CreateTransaction(CreateTransactionModel requestData)
         {
@@ -48,11 +61,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -64,11 +73,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            return xmlDocument.ToTransactionResponse<TUserdefined>();
+            return CreateXmlDocument(response).ToTransactionResponse<TUserdefined>();
         }
 
         /// <inheritdoc />
@@ -94,12 +99,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -111,12 +111,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -128,12 +123,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -145,12 +135,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -162,12 +147,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -179,12 +159,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -196,12 +171,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
 
         /// <inheritdoc />
@@ -213,12 +183,7 @@ namespace Paygate
             //Get the response
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
-            //Convert response to XML Document for manipulation of data
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(response);
-
-            //Return the converted response using some helper methods for the parsing
-            return xmlDocument.ToTransactionResponse();
+            return CreateXmlDocument(response).ToTransactionResponse();
         }
     }
 }
