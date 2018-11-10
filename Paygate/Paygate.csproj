@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>IPaygateService</PackageId>
-        <Version>2.0.0</Version>
+        <Version>2.0.1</Version>
         <Title>IPaygateService Payhost Service and Wrapper</Title>
         <Authors>Kevin Deason</Authors>
         <Company>Nanotech Computers</Company>
@@ -14,7 +14,14 @@
             Please support us by providing PayGate with our DeveloperId: DEVF57C1B4 
 
             Release Notes:
-
+            
+            ## 2.0.1
+            
+            Add Travis-ci build config
+            Automatically push new versions to Nuget
+            Add Codescene to repo to monitor code complexity
+            Minor Code refactoring in PaygateService.cs for smaller code footprint
+            
             ## 2.0.0
             
             Important Notes: This version is not backwards compatible with existing code utilising previous versions
