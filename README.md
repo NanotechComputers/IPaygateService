@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/NanotechComputers/IPaygateService.svg?branch=master)](https://travis-ci.org/NanotechComputers/IPaygateService)  Linux & OSX (Travis)
+
 # IPaygateService
 
 .NET Standard Service and Wrapper for the [Paygate](https://www.paygate.co.za) Payment Gateway. 
@@ -82,4 +84,6 @@ Debug.WriteLine(validChecksum ? "Checksum Matches" : "Checksum does not match, p
 ```
 
 Please see example .net core Web Application for more info/options
+
+[![](https://codescene.io/projects/3655/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/3655/jobs/latest-successful/results)
 
