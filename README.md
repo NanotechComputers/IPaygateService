@@ -4,6 +4,11 @@
 
 .NET Standard Service and Wrapper for the [Paygate](https://www.paygate.co.za) Payment Gateway. 
 
+### Support Us
+Please support us by providing PayGate with our **DeveloperId: DEVF57C1B4**
+
+You can use this link [paypal.me/nanotechcomputers](https://paypal.me/nanotechcomputers) if you want to donate via Paypal.
+
 ### Quick Start
 
 Install the [NuGet package](https://www.nuget.org/packages/IPaygateService/)

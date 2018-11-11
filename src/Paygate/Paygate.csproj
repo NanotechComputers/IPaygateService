@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>IPaygateService</PackageId>
-        <Version>2.0.1</Version>
+        <Version>2.0.2</Version>
         <Title>IPaygateService Payhost Service and Wrapper</Title>
         <Authors>Kevin Deason</Authors>
         <Company>Nanotech Computers</Company>
@@ -14,6 +14,11 @@
             Please support us by providing PayGate with our DeveloperId: DEVF57C1B4 
 
             Release Notes:
+
+            ## v2.0.2
+
+            * Refactor Project Structure
+            * Add Unit Tests for create, query and refund transaction methods to solution
             
             ## 2.0.1
             
@@ -58,6 +63,6 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
         <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-        <PackageReference Include="ServiceStack.Text.Core" Version="5.1.0" />
+        <PackageReference Include="ServiceStack.Text.Core" Version="5.4.0" />
     </ItemGroup>
 </Project>

@@ -2,10 +2,9 @@ language: csharp
 mono: none
 dotnet: 2.1.403
 branches:
-  only:
-  - master
 script:
 - ./build.sh
+- ./test.sh
 deploy:
   skip_cleanup: true
   provider: script
