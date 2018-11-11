@@ -1,6 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paygate", "Paygate\Paygate.csproj", "{21FAFFF6-8919-47A0-B545-0ADE8830F32C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9B3E4B8D-0188-4A90-8749-8ED772A441F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4943D80A-9419-4BFE-BB18-1D2F70EBC296}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		build.sh = build.sh
+		test.sh = test.sh
+		deploy.sh = deploy.sh
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{389B893E-E1A8-4233-A610-BD93F07116BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paygate", "src\Paygate\Paygate.csproj", "{21FAFFF6-8919-47A0-B545-0ADE8830F32C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paygate.UnitTests", "test\Paygate.UnitTests\Paygate.UnitTests.csproj", "{B5801305-D5D2-4C43-9E2F-454DF17C0F48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +29,19 @@ Global
 		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21FAFFF6-8919-47A0-B545-0ADE8830F32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5801305-D5D2-4C43-9E2F-454DF17C0F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5801305-D5D2-4C43-9E2F-454DF17C0F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5801305-D5D2-4C43-9E2F-454DF17C0F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5801305-D5D2-4C43-9E2F-454DF17C0F48}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{21FAFFF6-8919-47A0-B545-0ADE8830F32C} = {9B3E4B8D-0188-4A90-8749-8ED772A441F2}
+		{B5801305-D5D2-4C43-9E2F-454DF17C0F48} = {389B893E-E1A8-4233-A610-BD93F07116BD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21476EFF-778A-4F97-8A56-D1AF1CEC0C48}
 	EndGlobalSection
 EndGlobal
