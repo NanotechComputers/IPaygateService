@@ -9,8 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.sh = build.sh
 		test.sh = test.sh
 		deploy.sh = deploy.sh
-		LICENSE = LICENSE
+		LICENSEmd = LICENSE.md
 		README.md = README.md
+		RELEASENOTES.md = RELEASENOTES.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{389B893E-E1A8-4233-A610-BD93F07116BD}"
