@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9B3E4B8D-018
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4943D80A-9419-4BFE-BB18-1D2F70EBC296}"
 	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
 		build.sh = build.sh
 		deploy.sh = deploy.sh
 		test.sh = test.sh

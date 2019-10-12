@@ -3,8 +3,8 @@ mono: none
 dotnet: 2.1.403
 branches:
 script:
-- ./build.sh
-- ./test.sh
+- chmod +x ./build.sh && ./build.sh
+- chmod +x ./test.sh && ./test.sh
 deploy:
   skip_cleanup: true
   provider: script
