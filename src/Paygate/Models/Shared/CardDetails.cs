@@ -9,4 +9,10 @@
         public string ExpiryMonth { get; set; }
         public string ExpiryYear { get; set; }
     }
+    public class VaultCardDetails
+    {
+        public string VaultId { get; set; }
+        public string Cvv { get; set; }
+        public BudgetPeriods BudgetPeriod { get; set; } = BudgetPeriods.None;
+    }
 }

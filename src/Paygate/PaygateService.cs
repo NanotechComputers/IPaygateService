@@ -76,6 +76,48 @@ namespace Paygate
             return CreateXmlDocument(response).ToTransactionResponse<TUserdefined>();
         }
 
+
+        /// <inheritdoc />
+        public TransactionResponse CreateTokenTransaction(CreateTokenTransactionModel requestData)
+        {
+            //Post to Paygate
+            var transactionData = SingleTokenPaymentRequestSoapXml.Get(_merchantId, _merchantSecret, requestData);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            return CreateXmlDocument(response).ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public TransactionResponse<TUserdefined> CreateTokenTransaction<TUserdefined>(CreateTokenTransactionModel<TUserdefined> requestData) where TUserdefined : class
+        {
+            //Post to Paygate
+            var transactionData = SingleTokenPaymentRequestSoapXml.Get(_merchantId, _merchantSecret, requestData);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            return CreateXmlDocument(response).ToTransactionResponse<TUserdefined>();
+        }
+
+        public TransactionResponse CreateVaultTransaction(CreateVaultTransactionModel requestData)
+        {
+            //Post to Paygate
+            var transactionData = SingleVaultPaymentRequestSoapXml.Get(_merchantId, _merchantSecret, requestData);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            return CreateXmlDocument(response).ToTransactionResponse();
+        }
+
+        public TransactionResponse<TUserdefined> CreateVaultTransaction<TUserdefined>(CreateVaultTransactionModel<TUserdefined> requestData) where TUserdefined : class
+        {
+            throw new NotImplementedException();
+        }
+
+
         /// <inheritdoc />
         public bool VerifyTransaction(Dictionary<string, string> urlParams, string reference)
         {
@@ -184,6 +226,42 @@ namespace Paygate
             var response = _url.PostStringToUrl(transactionData, _contentType);
 
             return CreateXmlDocument(response).ToTransactionResponse();
+        }
+
+        /// <inheritdoc />
+        public CardVaultResponse CardVaultRequest(string cardNumber, string cardExpiryDate)
+        {
+            //Post to Paygate
+            var transactionData = SingleCardVaultRequestSoapXml.Get(_merchantId, _merchantSecret, cardNumber, cardExpiryDate);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            return CreateXmlDocument(response).ToCardVaultResponse();
+        }
+
+        /// <inheritdoc />
+        public LookupVaultResponse LookupVaultRequest(string vaultId)
+        {
+            //Post to Paygate
+            var transactionData = SingleLookUpVaultRequestSoapXml.Get(_merchantId, _merchantSecret, vaultId);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            return CreateXmlDocument(response).ToLookupVaultResponse();
+        }
+
+        /// <inheritdoc />
+        public DeleteVaultResponse DeleteVaultRequest(string vaultId)
+        {
+            //Post to Paygate
+            var transactionData = SingleDeleteVaultRequestSoapXml.Get(_merchantId, _merchantSecret, vaultId);
+
+            //Get the response
+            var response = _url.PostStringToUrl(transactionData, _contentType);
+
+            return CreateXmlDocument(response).ToDeleteVaultResponse();
         }
     }
 }

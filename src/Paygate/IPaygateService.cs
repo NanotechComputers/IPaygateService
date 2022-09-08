@@ -17,7 +17,7 @@ namespace Paygate
         /// To move the funds you must either process a Settlement transaction or get PayGate to turn on the AutoSettle option
         /// </remarks>
         /// </summary>
-        /// <param name="requestData">The relevant data required to perform a CreateTransaction request, see sample code</param>
+        /// <param name="requestData">The relevant data required to perform a CreateTransaction request</param>
         /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
         TransactionResponse CreateTransaction(CreateTransactionModel requestData);
 
@@ -28,10 +28,63 @@ namespace Paygate
         /// To move the funds you must either process a Settlement transaction or get PayGate to turn on the AutoSettle option
         /// </remarks>
         /// </summary>
-        /// <param name="requestData">The relevant data required to perform a CreateTransaction request, see sample code</param>
+        /// <param name="requestData">The relevant data required to perform a CreateTransaction request</param>
         /// <typeparam name="TUserdefined">a class containing custom user defined data</typeparam>
         /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
         TransactionResponse<TUserdefined> CreateTransaction<TUserdefined>(CreateTransactionModel<TUserdefined> requestData) where TUserdefined : class;
+
+        /// <summary>
+        /// CreateTokenTransaction request will reserve the specified amount on the supplied credit card
+        /// <remarks>
+        /// Steps in the payment request process
+        /// 1. Customer is redirected to the payment encryption service provider to authorise and authenticate the transaction.
+        /// 2. The payment encryption service provider sends the merchant encrypted data for the payment.
+        /// 3. The merchant sends the relevant encrypted data to PayGate along with other transaction data.
+        /// 4. PayGate decrypts the data received and processes the authorisation to the acquiring bank.
+        /// 5. Once the acquiring bank has responded with the authorisation status PayGate sends this response to the merchant.
+        /// </remarks>
+        /// </summary>
+        /// <param name="requestData">The relevant data required to perform a CreateTokenTransaction request</param>
+        /// <returns>This is currently a mystery as Paygate does not document this very well</returns>
+        TransactionResponse CreateTokenTransaction(CreateTokenTransactionModel requestData);
+
+        /// <summary>
+        /// CreateTokenTransaction request will reserve the specified amount on the supplied credit card
+        /// <remarks>
+        /// Steps in the payment request process
+        /// 1. Customer is redirected to the payment encryption service provider to authorise and authenticate the transaction.
+        /// 2. The payment encryption service provider sends the merchant encrypted data for the payment.
+        /// 3. The merchant sends the relevant encrypted data to PayGate along with other transaction data.
+        /// 4. PayGate decrypts the data received and processes the authorisation to the acquiring bank.
+        /// 5. Once the acquiring bank has responded with the authorisation status PayGate sends this response to the merchant.
+        /// </remarks>
+        /// </summary>
+        /// <param name="requestData">The relevant data required to perform a CreateTokenTransaction request</param>
+        /// <returns>This is currently a mystery as Paygate does not document this very well</returns>
+        TransactionResponse<TUserdefined> CreateTokenTransaction<TUserdefined>(CreateTokenTransactionModel<TUserdefined> requestData) where TUserdefined : class;
+
+
+        /// <summary>
+        /// CreateVaultTransaction request will reserve the specified amount on the supplied credit card by passing vaultId and ccv
+        /// </summary>
+        /// <remarks>
+        /// This does not move the funds from the credit card account to the merchants account.<br/>
+        /// To move the funds you must either process a Settlement transaction or get PayGate to turn on the AutoSettle option
+        /// </remarks>
+        /// <param name="requestData">The relevant data required to perform a CreateVaultTransaction request</param>
+        /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
+        TransactionResponse CreateVaultTransaction(CreateVaultTransactionModel requestData);
+
+        /// <summary>
+        /// CreateVaultTransaction request will reserve the specified amount on the supplied credit card by passing vaultId and ccv
+        /// </summary>
+        /// <remarks>
+        /// This does not move the funds from the credit card account to the merchants account.<br/>
+        /// To move the funds you must either process a Settlement transaction or get PayGate to turn on the AutoSettle option
+        /// </remarks>
+        /// <param name="requestData">The relevant data required to perform a CreateVaultTransaction request</param>
+        /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
+        TransactionResponse<TUserdefined> CreateVaultTransaction<TUserdefined>(CreateVaultTransactionModel<TUserdefined> requestData) where TUserdefined : class;
 
         #endregion
 
@@ -115,6 +168,37 @@ namespace Paygate
         /// <param name="transactionType">Transaction type detail of the transaction you want to void. Either Settlement or Refund</param>
         /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
         TransactionResponse VoidTransaction(int transactionId, VoidTransactionTypes transactionType);
+
+        #endregion
+
+        #region Vault Transaction
+
+        /// <summary>
+        /// CardVaultRequest will allow merchants to add to data stored by the PayVault tokenisation service.
+        /// <remarks>
+        /// Please note that currently PayVault only supports the tokenisation of credit card data.
+        /// </remarks>
+        /// </summary>
+        /// <returns>A Status Type will be returned as per Paygate's documentation</returns>
+        CardVaultResponse CardVaultRequest(string cardNumber, string cardExpiryDate);
+
+        /// <summary>
+        /// LookupVaultRequest will allow merchants to view what is stored by the PayVault tokenisation service.
+        /// <remarks>
+        /// Please note that currently PayVault only supports the tokenisation of credit card data.
+        /// </remarks>
+        /// </summary>
+        /// <returns>A Status Type will be returned as per Paygate's documentation</returns>
+        LookupVaultResponse LookupVaultRequest(string vaultId);
+
+        /// <summary>
+        /// DeleteVaultRequest will allow merchants to delete what is stored by the PayVault tokenisation service.
+        /// <remarks>
+        /// Please note that currently PayVault only supports the tokenisation of credit card data.
+        /// </remarks>
+        /// </summary>
+        /// <returns>A Status Type will be returned as per Paygate's documentation</returns>
+        DeleteVaultResponse DeleteVaultRequest(string vaultId);
 
         #endregion
 

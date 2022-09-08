@@ -8,6 +8,7 @@ namespace Paygate.Infrastructure.Extensions
 {
     internal static class TransactionResponseExtensions
     {
+        
         internal static TransactionResponse ToTransactionResponse(this XmlDocument src)
         {
             var error = src.GetXmlError<string>("faultstring");

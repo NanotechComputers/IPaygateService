@@ -38,5 +38,6 @@ namespace Paygate.UnitTests.Transaction
             Assert.True(response.UserdefinedData.UserDefinedField == "CustomUserDefinedData");
             Assert.True(response.StatusName == StatusName.Completed);
         }
+
     }
 }
