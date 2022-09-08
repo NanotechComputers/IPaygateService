@@ -17,7 +17,7 @@ namespace Paygate
         /// To move the funds you must either process a Settlement transaction or get PayGate to turn on the AutoSettle option
         /// </remarks>
         /// </summary>
-        /// <param name="requestData">The relevant data required to perfom a CreateTransaction request, see sample code</param>
+        /// <param name="requestData">The relevant data required to perform a CreateTransaction request, see sample code</param>
         /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
         TransactionResponse CreateTransaction(CreateTransactionModel requestData);
 
@@ -28,7 +28,7 @@ namespace Paygate
         /// To move the funds you must either process a Settlement transaction or get PayGate to turn on the AutoSettle option
         /// </remarks>
         /// </summary>
-        /// <param name="requestData">The relevant data required to perfom a CreateTransaction request, see sample code</param>
+        /// <param name="requestData">The relevant data required to perform a CreateTransaction request, see sample code</param>
         /// <typeparam name="TUserdefined">a class containing custom user defined data</typeparam>
         /// <returns>A full transaction detail response will be returned as per Paygate's documentation</returns>
         TransactionResponse<TUserdefined> CreateTransaction<TUserdefined>(CreateTransactionModel<TUserdefined> requestData) where TUserdefined : class;
